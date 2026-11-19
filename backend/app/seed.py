@@ -1,6 +1,7 @@
 import json
 
 from app.db import FIXTURES_DIR, connect
+from app.modules import micro_gap_restitch
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS settings (
@@ -70,9 +71,11 @@ def init_db():
             "INSERT INTO settings(key, value) VALUES ('idle_timeout_sec', ?)",
             ("1800",),
         )
+    micro_gap_restitch.ensure_schema(conn)
     n = conn.execute("SELECT COUNT(*) AS c FROM visitors").fetchone()["c"]
     if n == 0:
         _seed_fixtures(conn)
+        micro_gap_restitch.seed_fixture(conn)
     conn.commit()
     conn.close()
 

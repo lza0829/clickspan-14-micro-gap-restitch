@@ -1,0 +1,44 @@
+{
+  "visitors": [
+    {"id": "V-2001", "label": "访客缝回甲", "created_at": "2026-11-18T07:00:00Z"},
+    {"id": "V-2002", "label": "访客缝回乙", "created_at": "2026-11-18T07:00:00Z"}
+  ],
+  "segments": [
+    {
+      "session_id": "S-V-2001-a",
+      "visitor_id": "V-2001",
+      "status": "closed",
+      "hits": [
+        {"id": "MG1", "event_ts": "2026-11-18T08:00:00Z", "page_path": "/home", "event_name": "view"},
+        {"id": "MG2", "event_ts": "2026-11-18T08:04:00Z", "page_path": "/list", "event_name": "view"}
+      ]
+    },
+    {
+      "session_id": "S-V-2001-b",
+      "visitor_id": "V-2001",
+      "status": "open",
+      "hits": [
+        {"id": "MG3", "event_ts": "2026-11-18T08:04:45Z", "page_path": "/item/9", "event_name": "view"},
+        {"id": "MG4", "event_ts": "2026-11-18T08:06:00Z", "page_path": "/cart", "event_name": "click"}
+      ]
+    },
+    {
+      "session_id": "S-V-2002-a",
+      "visitor_id": "V-2002",
+      "status": "closed",
+      "hits": [
+        {"id": "MG5", "event_ts": "2026-11-18T09:00:00Z", "page_path": "/home", "event_name": "view"},
+        {"id": "MG6", "event_ts": "2026-11-18T09:05:00Z", "page_path": "/about", "event_name": "view"}
+      ]
+    },
+    {
+      "session_id": "S-V-2002-b",
+      "visitor_id": "V-2002",
+      "status": "open",
+      "hits": [
+        {"id": "MG7", "event_ts": "2026-11-18T09:15:30Z", "page_path": "/home", "event_name": "view"},
+        {"id": "MG8", "event_ts": "2026-11-18T09:16:00Z", "page_path": "/cart", "event_name": "click"}
+      ]
+    }
+  ]
+}

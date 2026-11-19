@@ -1,9 +1,10 @@
 def list_sessions(conn, visitor_id: str | None = None):
+    """对外会话列表：被缝回吞掉的会话（merged_away）不再对外出现。"""
     if visitor_id:
         rows = conn.execute(
             """
             SELECT id, visitor_id, started_at, ended_at, hit_count, status
-            FROM sessions WHERE visitor_id=?
+            FROM sessions WHERE visitor_id=? AND status != 'merged_away'
             ORDER BY started_at
             """,
             (visitor_id,),
@@ -12,14 +13,18 @@ def list_sessions(conn, visitor_id: str | None = None):
         rows = conn.execute(
             """
             SELECT id, visitor_id, started_at, ended_at, hit_count, status
-            FROM sessions ORDER BY started_at
+            FROM sessions WHERE status != 'merged_away'
+            ORDER BY started_at
             """
         ).fetchall()
     return [dict(r) for r in rows]
 
 
 def session_detail(conn, session_id: str):
-    sess = conn.execute("SELECT * FROM sessions WHERE id=?", (session_id,)).fetchone()
+    """对外会话详情：被吞会话一律查不到，只留保留会话一个 id 对外可查。"""
+    sess = conn.execute(
+        "SELECT * FROM sessions WHERE id=? AND status != 'merged_away'", (session_id,)
+    ).fetchone()
     if not sess:
         return None
     hits = conn.execute(
